@@ -1,5 +1,5 @@
 *Table of Contents*
 
   * [Home]
-  * [Library]
+  * [Oftalmolib]
   * [Tools]
