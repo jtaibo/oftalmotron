@@ -1,4 +1,4 @@
-#summary A set of Tobii-based eye-tracking interactive applications
+#summary OFTALMOTRON. Eye-tracking interactive 3D applications
 #sidebar TableOfContents
 
 *Contents*
