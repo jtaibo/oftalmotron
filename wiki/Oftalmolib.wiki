@@ -1,0 +1,5 @@
+#summary Oftalmolib. Eye-tracking abstraction layer
+
+= Introduction =
+
+Oftalmolib is an eye-tracking abstraction layer that allows applications to access the gaze information to be used in real-time.
