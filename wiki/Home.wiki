@@ -1,4 +1,5 @@
 #summary Oftalmotron: 3D interactive applications based on eye-tracking technology
+#labels Featured
 #sidebar TableOfContents
 
 = About =
