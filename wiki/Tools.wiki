@@ -1,4 +1,5 @@
 #summary Oftalmotron tools.
+#sidebar TableOfContents
 
 = Introduction =
 
