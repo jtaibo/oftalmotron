@@ -1,4 +1,5 @@
 #summary Test applications.
+#sidebar TableOfContents
 
 = Introduction =
 
