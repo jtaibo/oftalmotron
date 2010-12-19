@@ -1,4 +1,5 @@
 #summary Oftalmolib. Eye-tracking abstraction layer
+#sidebar TableOfContents
 
 = Introduction =
 
