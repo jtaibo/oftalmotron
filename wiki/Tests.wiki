@@ -1,0 +1,11 @@
+#summary Test applications.
+
+= Introduction =
+
+Several test applications are being developed, mostly to learn and illustrate the usage of the eye tracker.
+
+= Test applications =
+
+== Test 1 ==
+
+First test of Tobii eye tracker low level API. This is a simple program that connects to the eye tracker and retrieves gaze information in real-time.
