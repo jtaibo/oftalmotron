@@ -3,3 +3,4 @@
   * [Home]
   * [Oftalmolib]
   * [Tools]
+  * [Tests]
