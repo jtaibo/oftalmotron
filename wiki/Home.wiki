@@ -16,5 +16,6 @@ restriction imposed by the Tobii SDK. All source code is released under the GPL 
 
 = Links =
 
+  * [http://code.google.com/p/opengaze/ OpenGaze. Eye tracking using web cams]
   * [http://www.tobii.com/market_research_usability/products_services/eye_tracking_software/tobii_software_development_kit.aspx Tobii SDK download page]
   * [http://www.tobii.com/archive/files/17983/Product_description_SDK.pdf.aspx Tobii SDK description (PDF)]
