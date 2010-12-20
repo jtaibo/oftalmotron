@@ -24,8 +24,8 @@
 #include <tet.h>
 //#include <cv.h>
 
-#define TET_SERVER  NULL    // NULL = default: "127.0.0.1" or "localhost"
-#define PORT        0       // 0 = default: 4455
+#define TET_SERVER  "localhost"    // NULL = default: "127.0.0.1" or "localhost"
+#define PORT        4455       // 0 = default: 4455
 #define CALIBRATION_FILE    "calibfile"
 #define MAX_ITERATIONS      200
 
@@ -66,11 +66,23 @@ void __stdcall callback_function( ETet_CallbackReason reason, void *pData, void 
 
 int main(int argc, char *argv[])
 {
+	char *host = TET_SERVER;
+	long port = PORT;
+
+	if ( argc > 1 ) {
+		host = argv[1];
+	}
+	if ( argc > 2 ) {
+		port = atoi(argv[2]);
+	}
+
     long err;
     char pErrBuf[256];
 
+	std::cout << "Connecting to " << host << " on port " << port << std::endl;
+
     // Note: this calls must be performed within the same thread
-    err = Tet_Connect(TET_SERVER, PORT, TET_SYNC_NONE);
+    err = Tet_Connect(host, port, TET_SYNC_NONE);
     if ( err != TET_NO_ERROR ) {
         std::cerr << "ERROR. Tet_Connect (" << Tet_GetLastError() << ") : " << Tet_GetLastErrorAsText(pErrBuf) << std::endl;
         return -1;
