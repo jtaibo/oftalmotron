@@ -1,3 +1,6 @@
+0.1.0	WHENEVER	WHOEVER
+	Test1. Tobii low level API first test.
+	Oftalmolib. Abstraction layer for accessing the real-time gaze information
 
 0.0.0	2010/12/18	Javier Taibo <javier.taibo@gmail.com>
 	Initial release. Basic structure and placeholder for the applications
