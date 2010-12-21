@@ -31,7 +31,7 @@ namespace ot {
     /**
      *  Tobii eye tracker
      */
-	class __declspec(dllexport) TobiiEyeTracker : public EyeTracker, public OpenThreads::Thread {
+	class OFTALMOLIB_EXPORT_DIRECTIVE TobiiEyeTracker : public EyeTracker, public OpenThreads::Thread {
     public:
 
 		/// Constructor

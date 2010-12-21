@@ -19,41 +19,13 @@
     You should have received a copy of the GNU General Public License
     along with Oftalmotron.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef _EYETRACKER_H_
-#define _EYETRACKER_H_
+#ifndef _EXPORT_H_
+#define _EXPORT_H_
 
-#include "export.h"
+#if defined( OFTALMOLIB_EXPORTS )
+#  define OFTALMOLIB_EXPORT_DIRECTIVE __declspec(dllexport)
+#else
+#  define OFTALMOLIB_EXPORT_DIRECTIVE __declspec(dllimport)
+#endif
 
-namespace ot {
-
-    /**
-     *  Eye tracker system abstract interface
-     */
-    class OFTALMOLIB_EXPORT_DIRECTIVE  EyeTracker {
-    public:
-
-        typedef struct {
-//            int scrX;   ///< X coordinate in screen space
-//            int scrY;   ///< Y coordinate in screen space
-            float normX;	///< X coordinate normalized
-            float normY;	///< Y coordinate normalized (origin=top)
-            bool valid;		///< Is this eye correctly tracked?
-        } EyeGaze;
-
-        typedef struct {
-            EyeGaze left;   ///< Gaze information of left eye
-            EyeGaze right;  ///< Gaze information of right eye
-        } Gaze;
-
-        /// Query the eye track status
-        virtual Gaze getCurrentGaze() = 0;
-
-	protected:
-
-		Gaze _currentGaze;
-
-    };
-
-}
-
-#endif //_EYETRACKER_H_
+#endif //_EXPORT_H_
