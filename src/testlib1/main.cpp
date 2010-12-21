@@ -21,6 +21,7 @@
 */
 
 #include "../oftalmolib/tobiieyetracker.h"
+#include <iostream>
 
 #define TET_SERVER  "localhost"    // NULL = default: "127.0.0.1" or "localhost"
 #define PORT        4455       // 0 = default: 4455
@@ -28,6 +29,7 @@
 
 int main(int argc, char *argv[])
 {
+	OpenThreads::Thread::Init();
 	char *host = TET_SERVER;
 	long port = PORT;
 
@@ -37,7 +39,17 @@ int main(int argc, char *argv[])
 	if ( argc > 2 ) {
 		port = atoi(argv[2]);
 	}
-	OpenThreads::Thread::Init();
 	ot::TobiiEyeTracker *tet = new ot::TobiiEyeTracker( host, port );
 	tet->start();
+
+    OpenThreads::Thread::microSleep(3000000);
+    while(true) {
+        std::cout << "Left X : " << tet->getCurrentGaze().left.normX << std::endl;
+        std::cout << "Left Y : " << tet->getCurrentGaze().left.normY << std::endl;
+        std::cout << "Left valid : " << tet->getCurrentGaze().left.valid << std::endl;
+        std::cout << "Right X : " << tet->getCurrentGaze().right.normX << std::endl;
+        std::cout << "Right Y : " << tet->getCurrentGaze().right.normY << std::endl;
+        std::cout << "Right valid : " << tet->getCurrentGaze().right.valid << std::endl;
+        OpenThreads::Thread::microSleep(1000000);
+    }
 }

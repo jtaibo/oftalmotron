@@ -135,7 +135,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="oftalmolib.lib"
+				AdditionalDependencies="oftalmolib.lib OpenThreads.lib"
+				OutputFile="..\..\bin\$(ProjectName).exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\lib"
 				GenerateDebugInformation="true"
