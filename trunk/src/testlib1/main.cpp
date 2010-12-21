@@ -19,39 +19,25 @@
     You should have received a copy of the GNU General Public License
     along with Oftalmotron.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef _EYETRACKER_H_
-#define _EYETRACKER_H_
 
-namespace ot {
+#include "../oftalmolib/tobiieyetracker.h"
 
-    /**
-     *  Eye tracker system abstract interface
-     */
-    class __declspec( dllexport ) EyeTracker {
-    public:
+#define TET_SERVER  "localhost"    // NULL = default: "127.0.0.1" or "localhost"
+#define PORT        4455       // 0 = default: 4455
 
-        typedef struct {
-//            int scrX;   ///< X coordinate in screen space
-//            int scrY;   ///< Y coordinate in screen space
-            float normX;	///< X coordinate normalized
-            float normY;	///< Y coordinate normalized (origin=top)
-            bool valid;		///< Is this eye correctly tracked?
-        } EyeGaze;
 
-        typedef struct {
-            EyeGaze left;   ///< Gaze information of left eye
-            EyeGaze right;  ///< Gaze information of right eye
-        } Gaze;
+int main(int argc, char *argv[])
+{
+	char *host = TET_SERVER;
+	long port = PORT;
 
-        /// Query the eye track status
-        virtual Gaze getCurrentGaze() = 0;
-
-	protected:
-
-		Gaze _currentGaze;
-
-    };
-
+	if ( argc > 1 ) {
+		host = argv[1];
+	}
+	if ( argc > 2 ) {
+		port = atoi(argv[2]);
+	}
+	OpenThreads::Thread::Init();
+	ot::TobiiEyeTracker *tet = new ot::TobiiEyeTracker( host, port );
+	tet->start();
 }
-
-#endif //_EYETRACKER_H_

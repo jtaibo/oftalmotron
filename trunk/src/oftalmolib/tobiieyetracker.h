@@ -23,26 +23,52 @@
 #define _TOBIIEYETRACKER_H_
 
 #include "eyetracker.h"
+#include <OpenThreads/Thread>
+#include <string>
 
 namespace ot {
 
     /**
      *  Tobii eye tracker
      */
-    class TobiiEyeTracker : public EyeTracker {
+	class __declspec(dllexport) TobiiEyeTracker : public EyeTracker, public OpenThreads::Thread {
     public:
 
-        /// System initialization
-        virtual void initialize();
+		/// Constructor
+		TobiiEyeTracker( char * host, long port );
 
-        /// Systema shutdown
-        virtual void shutDown();
+		/// Destructor
+		~TobiiEyeTracker();
 
-        /// Update
-        virtual void update();
+		/// Start tracking
+		virtual void startTracking();
+
+		/// Stop tracking
+		virtual void stopTracking();
 
         /// Query the eye track status
-        virtual Gaze getCurrentStatus();
+        virtual Gaze getCurrentGaze();
+
+		/**
+		 *  Thread's run method.  Must be implemented by derived classes.
+		 *  This is where the action happens.
+		 */
+		virtual void run();
+
+		/**
+		 *	Update the gaze information
+		 *	This method is meant to be called from the eye tracking thread
+		 *	and so the gaze access is protected by the mutex
+		 */
+		void updateGaze( Gaze &gaze );
+
+	private:
+
+		char * _host;
+
+		long _port;
+
+		OpenThreads::Mutex _gazeMutex;
 
     };
 
