@@ -13,4 +13,4 @@ First test of Tobii eye tracker low level API. This is a simple program that con
 
 == Testlib 1 ==
 
-Test of the [Oftalmolib] library that builds the EyeTracker thread and prints the output to console.
+Test of the [Oftalmolib] library that builds the !EyeTracker thread and prints the output to console.
