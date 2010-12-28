@@ -7,7 +7,7 @@
 Oftalmotron is an open-source project composed by a toolkit to integrate eye-tracking technology in 3D interactive applications and some example programs.
 The applications and the library are meant to be used in research activities.
 
-The eye tracking hardware currently used is Tobii T60, with a freely redistributable SDK (see [http://oftalmotron.googlecode.com/svn/trunk/doc/tobii-redist-manual.pdf doc/tobii-redist-manual.pdf]).
+The eye tracking hardware currently used is Tobii T60 XL, with a freely redistributable SDK (see [http://oftalmotron.googlecode.com/svn/trunk/doc/tobii-redist-manual.pdf doc/tobii-redist-manual.pdf]).
 The 3D engine of the applications will be based on [http://www.openscenegraph.org OpenSceneGraph (OSG)] or just [http://www.opengl.org OpenGL].
 
 The software is developed in C++ and currently limited to Windows platform, because of the
