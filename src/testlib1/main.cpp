@@ -41,15 +41,20 @@ int main(int argc, char *argv[])
 	}
 	ot::TobiiEyeTracker *tet = new ot::TobiiEyeTracker( host, port );
 	tet->start();
+	tet->waitForInit();
 
     OpenThreads::Thread::microSleep(3000000);
     while(true) {
-        std::cout << "Left X : " << tet->getCurrentGaze().left.normX << std::endl;
-        std::cout << "Left Y : " << tet->getCurrentGaze().left.normY << std::endl;
-        std::cout << "Left valid : " << tet->getCurrentGaze().left.valid << std::endl;
-        std::cout << "Right X : " << tet->getCurrentGaze().right.normX << std::endl;
-        std::cout << "Right Y : " << tet->getCurrentGaze().right.normY << std::endl;
-        std::cout << "Right valid : " << tet->getCurrentGaze().right.valid << std::endl;
+        std::cout << "X :\t" << tet->getCurrentGaze().left.normX << "\t"
+			<< tet->getCurrentGaze().right.normX << std::endl;
+        std::cout << "Y :\t" << tet->getCurrentGaze().left.normY << "\t"
+			<< tet->getCurrentGaze().right.normY << std::endl;
+		std::cout << "Dist :\t" << tet->getCurrentGaze().left.distance << "\t" 
+			<< tet->getCurrentGaze().right.distance << std::endl;
+		std::cout << "PD :\t" << tet->getCurrentGaze().left.pupilSize << "\t"
+			<< tet->getCurrentGaze().right.pupilSize << std::endl;
+        std::cout << "Valid :\t" << tet->getCurrentGaze().left.valid << "\t"
+			<< tet->getCurrentGaze().right.valid << std::endl;
         OpenThreads::Thread::microSleep(1000000);
     }
 }

@@ -21,7 +21,6 @@
 */
 #include "tobiieyetracker.h"
 #include <iostream>
-#include <tet.h>
 
 
 using namespace ot;
@@ -30,11 +29,13 @@ using namespace ot;
 /**
  *	Constructor
  */
-TobiiEyeTracker::TobiiEyeTracker( char * host, long port )
+TobiiEyeTracker::TobiiEyeTracker( char * host, long port ) :
+	_host(host),
+	_port(port),
+	_initialized(false)
 {
-	// Create and launch the eye tracking thread
-	_host = host;
-	_port = port;
+	// We do not spawn the eye tracking thread
+	// until the user calls the start() method
 }
 
 
@@ -42,22 +43,6 @@ TobiiEyeTracker::TobiiEyeTracker( char * host, long port )
  *	Destructor
  */
 TobiiEyeTracker::~TobiiEyeTracker()
-{
-}
-
-
-/**
- *	Start tracking
- */
-void TobiiEyeTracker::startTracking()
-{
-}
-
-
-/**
- *	Stop tracking
- */
-void TobiiEyeTracker::stopTracking()
 {
 }
 
@@ -80,8 +65,6 @@ EyeTracker::Gaze TobiiEyeTracker::getCurrentGaze()
  */
 void __stdcall callback_function( ETet_CallbackReason reason, void *pData, void *pApplicationData )
 {
-//    static int iteration = 0;
-
     if( pData != NULL ) {
         STet_GazeData *gaze_data = (STet_GazeData *)pData;
 /*        std::cout << "Timestamp : " << gaze_data->timestamp_sec << "s " << gaze_data->timestamp_microsec << "us" << std::endl;
@@ -102,19 +85,11 @@ void __stdcall callback_function( ETet_CallbackReason reason, void *pData, void 
         std::cout << "  Distance  : " << gaze_data->distance_righteye << std::endl;
         std::cout << "  Validity  : " << gaze_data->validity_righteye << std::endl;
 */
-		EyeTracker::Gaze gaze;
-		gaze.left.normX = gaze_data->x_gazepos_lefteye;
-		gaze.left.normY = gaze_data->y_gazepos_lefteye;
-		gaze.left.valid = gaze_data->validity_lefteye == 0;
-		gaze.right.normX = gaze_data->x_gazepos_righteye;
-		gaze.right.normY = gaze_data->y_gazepos_righteye;
-		gaze.right.valid = gaze_data->validity_righteye == 0;
-
 		TobiiEyeTracker *tet = (TobiiEyeTracker *)pApplicationData;
-		tet->updateGaze( gaze );
+		tet->updateGaze( gaze_data );
     }
 
-    //if ( iteration > MAX_ITERATIONS ) {
+    //if ( done ) {
     //    Tet_Stop();
     //}
 }
@@ -133,6 +108,8 @@ void TobiiEyeTracker::run()
 {
     long err;
     char pErrBuf[256];
+
+	_initMutex.lock();
 
 	std::cout << "Connecting to " << _host << " on port " << _port << std::endl;
 
@@ -163,6 +140,8 @@ void TobiiEyeTracker::run()
     }
     */
 
+	_initMutex.unlock();
+
     long interval = 0;  // 0 = wait until there are new data
 //    STet_GazeData gaze_data;
 //    err = Tet_Start( callback_function, &gaze_data, interval );
@@ -179,9 +158,29 @@ void TobiiEyeTracker::run()
  *	This method is meant to be called from the eye tracking thread
  *	and so the gaze access is protected by the mutex
  */
-void TobiiEyeTracker::updateGaze( Gaze &gaze )
+void TobiiEyeTracker::updateGaze( const STet_GazeData *gaze_data )
 {
 	_gazeMutex.lock();
-	_currentGaze = gaze;
+	_currentGaze.left.normX = gaze_data->x_gazepos_lefteye;
+	_currentGaze.left.normY = gaze_data->y_gazepos_lefteye;
+	_currentGaze.left.distance = gaze_data->distance_lefteye;
+	_currentGaze.left.pupilSize = gaze_data->diameter_pupil_lefteye;
+	_currentGaze.left.valid = gaze_data->validity_lefteye == 0;
+	_currentGaze.right.normX = gaze_data->x_gazepos_righteye;
+	_currentGaze.right.normY = gaze_data->y_gazepos_righteye;
+	_currentGaze.right.distance = gaze_data->distance_righteye;
+	_currentGaze.right.pupilSize = gaze_data->diameter_pupil_righteye;
+	_currentGaze.right.valid = gaze_data->validity_righteye == 0;
 	_gazeMutex.unlock();
+}
+
+
+/**
+ *	Wait for the initialization to be done
+ */
+bool TobiiEyeTracker::waitForInit()
+{
+	_initMutex.lock();
+	_initMutex.unlock();
+	return _initialized;
 }
