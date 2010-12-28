@@ -10,3 +10,7 @@ Several test applications are being developed, mostly to learn and illustrate th
 == Test 1 ==
 
 First test of Tobii eye tracker low level API. This is a simple program that connects to the eye tracker and retrieves gaze information in real-time.
+
+== Testlib 1 ==
+
+Test of the [Oftalmolib] library that builds the EyeTracker thread and prints the output to console.
