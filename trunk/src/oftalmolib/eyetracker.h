@@ -32,18 +32,51 @@ namespace ot {
     class OFTALMOLIB_EXPORT_DIRECTIVE  EyeTracker {
     public:
 
-        typedef struct {
-//            int scrX;   ///< X coordinate in screen space
-//            int scrY;   ///< Y coordinate in screen space
-            float normX;	///< X coordinate normalized
-            float normY;	///< Y coordinate normalized (origin=top)
+		/** 
+		 *	Gaze information for one eye
+		 */
+        class EyeGaze {
+		public:
+            float normX;	///< X coordinate (normalized)
+            float normY;	///< Y coordinate (normalized) (origin=top)
+			float distance;	///< Distance from eye to screen (mm)
+			float pupilSize;	///< Pupil diameter (mm)
             bool valid;		///< Is this eye correctly tracked?
-        } EyeGaze;
 
-        typedef struct {
+			/// Constructor
+			EyeGaze()
+			{ valid = false; }
+        };
+
+		/**
+		 *	Gaze information for two eyes
+		 *
+		 *	This struct provides methods for
+		 */
+        class Gaze {
+		public:
             EyeGaze left;   ///< Gaze information of left eye
             EyeGaze right;  ///< Gaze information of right eye
-        } Gaze;
+
+			/// Averaged normalized X coordinate
+			float normX()
+			{ return (left.normX+right.normX)/2.0f; }
+
+			/// Averaged normalized Y coordinate
+			float normY()
+			{ return (left.normY+right.normY)/2.0f; }
+
+			/// Averaged distance from eyes to screen (mm)
+			float distance()
+			{ return (left.distance+right.distance)/2.0f; }
+
+			/// Averaged pupil size (mm)
+			float pupilSize()
+			{ return (left.pupilSize+right.pupilSize)/2.0f; }
+
+			bool valid()
+			{ return left.valid && right.valid; }
+        };
 
         /// Query the eye track status
         virtual Gaze getCurrentGaze() = 0;

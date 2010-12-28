@@ -23,6 +23,7 @@
 #define _TOBIIEYETRACKER_H_
 
 #include "eyetracker.h"
+#include <tet.h>
 #include <OpenThreads/Thread>
 #include <string>
 
@@ -40,12 +41,6 @@ namespace ot {
 		/// Destructor
 		~TobiiEyeTracker();
 
-		/// Start tracking
-		virtual void startTracking();
-
-		/// Stop tracking
-		virtual void stopTracking();
-
         /// Query the eye track status
         virtual Gaze getCurrentGaze();
 
@@ -60,18 +55,24 @@ namespace ot {
 		 *	This method is meant to be called from the eye tracking thread
 		 *	and so the gaze access is protected by the mutex
 		 */
-		void updateGaze( Gaze &gaze );
+		void updateGaze( const STet_GazeData *gaze_data );
+
+		/// Wait until the initialization has been done
+		bool waitForInit();
 
 	private:
 
 		char * _host;
-
 		long _port;
+
+		bool _initialized;
+
+		/// Mutex to wait for initialization completion
+		OpenThreads::Mutex _initMutex;
 
 		OpenThreads::Mutex _gazeMutex;
 
     };
-
 }
 
 #endif //_TOBIIEYETRACKER_H_
