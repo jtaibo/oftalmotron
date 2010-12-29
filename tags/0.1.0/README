@@ -1,0 +1,33 @@
+Oftalmotron - Interactive applications of eye tracking technology
+Version 0.1.0
+
+Copyright (C) 2010 Javier Taibo <javier.taibo@gmail.com>
+Universidade da Coruña. Spain
+
+
+Description
+===========
+
+The target of this project is to develop applications that test the use of eye tracking
+technology in 3D interactive applications, mainly for research purposes.
+
+The eye tracking used is Tobii, with a freely redistributable SDK (see doc/tobii-redist-manual.pdf).
+The 3D engine of the applications will be based on OpenSceneGraph (OSG) or just OpenGL.
+
+It is developed in C++ and currently limited to Windows platform, because of the
+restriction imposed by the Tobii SDK.
+
+This software is released as open source under the GNU GPL v3 License.
+
+
+Contents
+========
+
+README					This File
+COPYING					GNU GPL v3 License
+AUTHORS					Authors and contributors of the project
+HISTORY					Changelog of the project up to this release
+VERSION					Current release version number
+src						Source code
+doc						Documentation
+Visual Studio 2008		Visual Studio projects and solution
