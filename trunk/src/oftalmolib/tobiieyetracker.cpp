@@ -172,6 +172,7 @@ void TobiiEyeTracker::updateGaze( const STet_GazeData *gaze_data )
 	_currentGaze.right.pupilSize = gaze_data->diameter_pupil_righteye;
 	_currentGaze.right.valid = gaze_data->validity_righteye == 0;
 	_gazeMutex.unlock();
+	notifyObservers();
 }
 
 
