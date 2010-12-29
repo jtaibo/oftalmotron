@@ -46,4 +46,7 @@ int main(int argc, char *argv[])
 #endif
 
     }
+
+	// Poner esto donde se quiera simular un click
+	// mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
 }
