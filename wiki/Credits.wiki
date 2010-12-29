@@ -5,4 +5,5 @@
 
 = Acknowledgments =
 
+We would like to thank the
 [http://www.cienciasdacomunicacion.es/ Faculty of Communication Sciences] of the [http://www.udc.es University of Coruña] for kindly provide access to the eye tracking hardware for the development of this project.
