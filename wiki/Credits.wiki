@@ -1,0 +1,8 @@
+= Credits =
+
+  * Javier Taibo <jtaibo@udc.es> - [http://www.cienciasdacomunicacion.es/ Faculty of Communication Sciences]. [http://www.udc.es University of Coruña]
+  * Alberto Jaspe <ajaspe@gmail.com>
+
+= Acknowledgments =
+
+[http://www.cienciasdacomunicacion.es/ Faculty of Communication Sciences] of the [http://www.udc.es University of Coruña] for kindly provide access to the eye tracking hardware for the development of this project.
