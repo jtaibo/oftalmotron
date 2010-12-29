@@ -4,3 +4,4 @@
   * [Oftalmolib]
   * [Tools]
   * [Tests]
+  * [Credits]
