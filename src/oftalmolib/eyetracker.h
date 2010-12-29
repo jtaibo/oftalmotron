@@ -23,19 +23,31 @@
 #define _EYETRACKER_H_
 
 #include "export.h"
+#include <vector>
 
 namespace ot {
 
     /**
      *  Eye tracker system abstract interface
      */
-    class OFTALMOLIB_EXPORT_DIRECTIVE  EyeTracker {
+    class OFTALMOLIB_EXPORT_DIRECTIVE EyeTracker {
     public:
+
+		/**
+		 *	Gaze observer.
+		 *
+		 *	Registered observers will be notified
+		 *	each time new gaze data is available
+		 */
+		class OFTALMOLIB_EXPORT_DIRECTIVE Observer {
+		public:
+			virtual void notify() = 0;
+		};
 
 		/** 
 		 *	Gaze information for one eye
 		 */
-        class EyeGaze {
+        class OFTALMOLIB_EXPORT_DIRECTIVE EyeGaze {
 		public:
             float normX;	///< X coordinate (normalized)
             float normY;	///< Y coordinate (normalized) (origin=top)
@@ -53,37 +65,41 @@ namespace ot {
 		 *
 		 *	This struct provides methods for
 		 */
-        class Gaze {
+        class OFTALMOLIB_EXPORT_DIRECTIVE Gaze {
 		public:
             EyeGaze left;   ///< Gaze information of left eye
             EyeGaze right;  ///< Gaze information of right eye
 
 			/// Averaged normalized X coordinate
-			float normX()
-			{ return (left.normX+right.normX)/2.0f; }
+			float normX();
 
 			/// Averaged normalized Y coordinate
-			float normY()
-			{ return (left.normY+right.normY)/2.0f; }
+			float normY();
 
 			/// Averaged distance from eyes to screen (mm)
-			float distance()
-			{ return (left.distance+right.distance)/2.0f; }
+			float distance();
 
 			/// Averaged pupil size (mm)
-			float pupilSize()
-			{ return (left.pupilSize+right.pupilSize)/2.0f; }
+			float pupilSize();
 
-			bool valid()
-			{ return left.valid && right.valid; }
+			bool valid();
         };
 
         /// Query the eye track status
         virtual Gaze getCurrentGaze() = 0;
 
+		/// Register a new observer
+		void registerObserver( Observer *obs );
+
 	protected:
 
 		Gaze _currentGaze;
+
+		/// List of observer objects
+		std::vector<Observer *> _observers;
+
+		/// Notify registered observers. New data is available
+		void notifyObservers();
 
     };
 
