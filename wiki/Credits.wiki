@@ -1,6 +1,6 @@
 = Credits =
 
-  * Javier Taibo <jtaibo@udc.es> - [http://www.cienciasdacomunicacion.es/ Faculty of Communication Sciences]. [http://www.udc.es University of Coruña]
+  * Javier Taibo <jtaibo@udc.es> - [http://www.cienciasdacomunicacion.es/ Faculty of Communication Sciences]. [http://www.madsgroup.org MADS Group]. [http://www.udc.es University of Coruña]
   * Alberto Jaspe <ajaspe@gmail.com>
 
 = Acknowledgments =
